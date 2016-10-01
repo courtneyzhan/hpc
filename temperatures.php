@@ -5,7 +5,10 @@ WHEN AT SCHOOL:
 				REPLACE $dbhost WITH 10.42.68.102
 				REPLACE $dbuser AND $dbpass WITH cdeod1
 				REPLACE THE SQL QUERIES FOR EACH AREA
-				THE TABLE NAME FOR AvgTemp IS AverageTemp(erature?)-->
+				THE TABLE NAME FOR AvgTemp IS AverageTemp(erature?)
+				CHANGE COLOUR SCHEME - MIN, MAX, STOP, HOVER
+				CELSIUS OR FAHRENHEIT?
+				-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 
         <script src="http://code.highcharts.com/maps/highmaps.js"></script>
@@ -36,7 +39,7 @@ WHEN AT SCHOOL:
 				$j01 = "$AverageTemp";
 			};
       //j02
-			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
+			$sql = "SELECT AvgTemp FROM `j02` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
 			
 			if(!$result) {
@@ -47,7 +50,7 @@ WHEN AT SCHOOL:
 				$j02 = "$AverageTemp";
 			};
       //j03
-			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
+			$sql = "SELECT AvgTemp FROM `j03` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
 			
 			if(!$result) {
@@ -58,7 +61,7 @@ WHEN AT SCHOOL:
 				$j03 = "$AverageTemp";
 			};
       //j04
-			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
+			$sql = "SELECT AvgTemp FROM `j04` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
 			
 			if(!$result) {
@@ -69,7 +72,7 @@ WHEN AT SCHOOL:
 				$j04 = "$AverageTemp";
 			};
       //j05
-			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
+			$sql = "SELECT AvgTemp FROM `j05` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
 			
 			if(!$result) {
@@ -80,7 +83,7 @@ WHEN AT SCHOOL:
 				$j05 = "$AverageTemp";
 			};
       //j06
-			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
+			$sql = "SELECT AvgTemp FROM `j06` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
 			
 			if(!$result) {
@@ -148,7 +151,7 @@ WHEN AT SCHOOL:
 
 		?>
 
-    <div id="container"></div>
+    <div id="container" style="height:800px"></div>
 
 <script>
 
@@ -157,11 +160,26 @@ $(function() {
   // Initiate the chart
   $('#container').highcharts('Map', {
     title: {
-      "text": "J Block Temperatures"
+      "text": "J Block Temperatures (℃)"
     },
     mapNavigation: {
       enabled: true
     },
+		navigation: {
+		            buttonOptions: {
+		                enabled: true
+		            }
+		        },
+
+		colorAxis: {
+			type: 'linear',
+			stops: [
+				[0, '#bbe3e3'],
+				[0.5, '#8DB6CC'],
+				[0.9, '#64889E']
+			],
+		},
+		
     series: [{
       "dataLabels": {
         "enabled": "true",
@@ -170,6 +188,14 @@ $(function() {
       },
       "name": "Temperature",
       "type": "map",
+      states: {
+          hover: {
+              color: '#bbcfe3'
+          }
+      },
+			tooltip: {
+				valueSuffix: '℃',
+			},
       "data": [{
         "name": "Group 3<br>Staff Room",
         "value": <?php echo $grp3 ?>,
