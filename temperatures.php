@@ -9,9 +9,15 @@ WHEN AT SCHOOL:
 				CHANGE COLOUR SCHEME - MIN, MAX, STOP, HOVER
 				CELSIUS OR FAHRENHEIT?
 				-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
-
+				<!-- dependent on Internet
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
         <script src="http://code.highcharts.com/maps/highmaps.js"></script>
+				-->
+				
+				<script src="js/jquery-3.1.0.js"></script>
+        <script src="js/highmaps-5.0.js"></script>
+				<!-- optional -->
+				<script src="js/highmaps-exporting-5.0.js"></script>
     </head>
     <body>
     <?php
@@ -22,9 +28,9 @@ WHEN AT SCHOOL:
       $dbuser = 'root';
 			$dbpass = '';
 			$conn = mysqli_connect($dbhost, $dbuser, $dbpass);
-     if (mysqli_connect_errno()) {
-  				echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  			}
+      if (mysqli_connect_errno()) {
+  			echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  	  }
 			mysqli_select_db($conn, 'weatherdata');
 
       //j01
@@ -150,8 +156,8 @@ WHEN AT SCHOOL:
 			};
 
 		?>
-
-    <div id="container" style="height:800px"></div>
+		
+		<div id="container" style="height: 640px; min-width: 640px; max-width: 960px; margin: 0 auto"></div>
 
 <script>
 
@@ -165,12 +171,11 @@ $(function() {
     mapNavigation: {
       enabled: true
     },
-		navigation: {
-		            buttonOptions: {
-		                enabled: true
-		            }
-		        },
-
+    navigation: {
+      buttonOptions: {
+        enabled: true
+      }
+    },
 		colorAxis: {
 			type: 'linear',
 			stops: [
@@ -180,14 +185,25 @@ $(function() {
 			],
 		},
 		
+		plotOptions: {
+        series: {
+/*
+            tooltip: {
+                headerFormat: 'XXX',
+                pointFormat: '{series.name}'
+            }
+*/
+        }
+    },
+
     series: [{
-      "dataLabels": {
-        "enabled": "true",
+      dataLabels: {
+        enabled: "true",
         color: '#FFFFFF',
         format: '{point.name}'
       },
-      "name": "Temperature",
-      "type": "map",
+      name: "Temperature",
+      type: "map",
       states: {
           hover: {
               color: '#bbcfe3'
@@ -196,7 +212,7 @@ $(function() {
 			tooltip: {
 				valueSuffix: '℃',
 			},
-      "data": [{
+      data: [{
         "name": "Group 3<br>Staff Room",
         "value": <?php echo $grp3 ?>,
         "path": "M852,-993L992,-993,992,-827,852,-827,852,-993"
