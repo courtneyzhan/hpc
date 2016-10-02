@@ -179,9 +179,19 @@ $(function() {
 		colorAxis: {
 			type: 'linear',
 			stops: [
-				[0, '#bbe3e3'],
-				[0.5, '#8DB6CC'],
-				[0.9, '#64889E']
+				[0, '#1434F7'],
+				[0.08, '#1768C5'],
+				[0.16, '#32CDFA'],
+				[0.24, '#3FFFFD'],
+				[0.32, '#42FFFD'],
+				[0.4, '#3BFB42'],
+				[0.48, '#3AFB40'],
+				[0.56, '#3BFB42'],
+				[0.64, '#9BC838'],
+				[0.72, '#CDE243'],
+				[0.8, '#FFFB4E'],
+				[0.88, '#FB9738'],
+				[0.96, '#F9632D']
 			],
 		},
 		
@@ -194,6 +204,11 @@ $(function() {
             }
 */
         }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'bottom'
     },
 
     series: [{
