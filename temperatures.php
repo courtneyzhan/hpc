@@ -1,29 +1,15 @@
 <html>
     <head>
-        <!--CURRENTLY FUNCTIONAL. 
-WHEN AT SCHOOL:
-				REPLACE $dbhost WITH 10.42.68.102
-				REPLACE $dbuser AND $dbpass WITH cdeod1
-				REPLACE THE SQL QUERIES FOR EACH AREA
-				THE TABLE NAME FOR AvgTemp IS AverageTemp(erature?)
-				CHANGE COLOUR SCHEME - MIN, MAX, STOP, HOVER
-				CELSIUS OR FAHRENHEIT?
-				-->
 				<!-- dependent on Internet
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
         <script src="http://code.highcharts.com/maps/highmaps.js"></script>
 				-->
-				
 				<script src="js/jquery-3.1.0.js"></script>
         <script src="js/highmaps-5.0.js"></script>
-				<!-- optional -->
 				<script src="js/highmaps-exporting-5.0.js"></script>
     </head>
     <body>
-    <?php
-
-      $four = 4;
-      
+    <?php  
       $dbhost = 'localhost';
       $dbuser = 'root';
 			$dbpass = '';
@@ -32,127 +18,115 @@ WHEN AT SCHOOL:
   			echo "Failed to connect to MySQL: " . mysqli_connect_error();
   	  }
 			mysqli_select_db($conn, 'weatherdata');
-
+			
       //j01
 			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j01 = "$AverageTemp";
 			};
+			
       //j02
 			$sql = "SELECT AvgTemp FROM `j02` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j02 = "$AverageTemp";
 			};
+			
       //j03
 			$sql = "SELECT AvgTemp FROM `j03` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j03 = "$AverageTemp";
 			};
+			
       //j04
 			$sql = "SELECT AvgTemp FROM `j04` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j04 = "$AverageTemp";
 			};
+			
       //j05
 			$sql = "SELECT AvgTemp FROM `j05` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j05 = "$AverageTemp";
 			};
+			
       //j06
 			$sql = "SELECT AvgTemp FROM `j06` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j06 = "$AverageTemp";
 			};
+			
       //j07
 			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j07 = "$AverageTemp";
 			};
+			
       //j08
 			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
 				$j08 = "$AverageTemp";
 			};
-      //Head of House
+			
+      //Senior Study
 			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
-				$hoh = "$AverageTemp";
+				$ss = "$AverageTemp";
 			};
-      //Grp 3
+			
+      //Grp 2
 			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
-				$grp3 = "$AverageTemp";
+				$grp2 = "$AverageTemp";
 			};
-      //Grp 1 & 2
+			
+      //Grp 1 & 3
 			$sql = "SELECT AvgTemp FROM `j01` "; //order by currenttime asc
 			$result = mysqli_query($conn, $sql);
-			
 			if(!$result) {
 				die('Could not get data ' . mysql_error());
 			}
-			
 			while( list($AverageTemp) = mysqli_fetch_row($result) ) {
-				$grp12 = "$AverageTemp";
+				$grp13 = "$AverageTemp";
 			};
 
 		?>
@@ -196,14 +170,15 @@ $(function() {
 		},
 		
 		plotOptions: {
-        series: {
-/*
-            tooltip: {
-                headerFormat: 'XXX',
-                pointFormat: '{series.name}'
-            }
-*/
-        }
+			columnrange: {
+				dataLabels: {
+					enabled: true,
+					color: 'orange',
+					style: {
+					                      textShadow: false 
+					                    },
+				}
+			}
     },
     legend: {
         layout: 'vertical',
@@ -214,8 +189,11 @@ $(function() {
     series: [{
       dataLabels: {
         enabled: "true",
-        color: '#FFFFFF',
-        format: '{point.name}'
+        color: '#000000',
+        format: '{point.name}',
+        style: {
+            "textShadow": "0"
+        },
       },
       name: "Temperature",
       type: "map",
@@ -228,49 +206,56 @@ $(function() {
 				valueSuffix: '℃',
 			},
       data: [{
-        "name": "Group 3<br>Staff Room",
-        "value": <?php echo $grp3 ?>,
-        "path": "M852,-993L992,-993,992,-827,852,-827,852,-993"
+        "name": "Group 2<br>Staff Room",
+        "value": <?php echo $grp2 ?>,
+				"path": "M6,-495L234,-495,234,-398,6,-398,6,-495"
       }, {
         "name": "J08",
         "value": <?php echo $j08 ?>,
-        "path": "M639,-998L838,-998,838,-774,639,-774,639,-998"
+				"path": "M242,-487L490,-487,490,-398,242,-398,242,-487"
       }, {
-        "name": "J07",
-        "value": <?php echo $j07 ?>,
-        "path": "M425,-1000L624,-1000,624,-776,425,-776,425,-1000"
+       	"name": "J07",
+				"value": <?php echo $j07 ?>,
+				"path": "M498,-544L760,-544,760,-398,498,-398,498,-544"
       }, {
         "name": "J06",
         "value": <?php echo $j06 ?>,
-        "path": "M213,-1002L412,-1002,412,-778,213,-778,213,-1002"
+				"path": "M847,-784L996,-784,996,-604,847,-604,847,-784"
+
       }, {
         "name": "J05",
         "value": <?php echo $j05 ?>,
-        "path": "M0,-905L199,-905,199,-635,0,-635,0,-905"
+				"path": "M855,-995L994,-995,994,-792,855,-792,855,-995"
+
       }, {
         "name": "J04",
-        "value": <?php echo $j04 ?>,
-        "path": "M154,-607L364,-607,364,-383,154,-383,154,-607"
+	      "value": <?php echo $j04 ?>,
+				"path": "M653,-995L849,-995,849,-793,653,-793,653,-995"
+	     
       }, {
         "name": "J03",
         "value": <?php echo $j03 ?>,
-        "path": "M379,-607L578,-607,578,-383,379,-383,379,-607"
+				"path": "M477,-995L647,-995,647,-792,477,-792,477,-995"
+        
       }, {
         "name": "J02",
-        "value": <?php echo $j02 ?>,
-        "path": "M591,-607L790,-607,790,-383,591,-383,591,-607"
+				"value": <?php echo $j02 ?>,
+				"path": "M174,-997L343,-997,343,-795,174,-795,174,-997"
+			
       }, {
         "name": "J01",
         "value": <?php echo $j01 ?>,
-        "path": "M801,-608L1000,-608,1000,-385,801,-385,801,-608"
+				"path": "M0,-997L169,-997,169,-795,0,-795,0,-997"
+     
       }, {
-        "name": "Group 1 & 2 Staff Room",
-        "value": <?php echo $grp12 ?>,
-        "path": "M218,-755L713,-755,713,-640,218,-640,218,-755"
-      }, {
-        "name": "Head of House Offices",
-        "value": <?php echo $hoh ?>,
-        "path": "M732,-753L985,-753,985,-646,732,-646,732,-753"
+				"name": "Group 1 & 3 Staffroom",
+				"value": <?php echo $grp13 ?>,
+				"path": "M391,-759L727,-759,727,-611,391,-611,391,-759"
+			},{
+        "name": "Senior Study",
+        "value": <?php echo $ss ?>,
+				"path": "M767,-596L1000,-596,1000,-398,767,-398,767,-596"
+       
       }]
     }]
   });
